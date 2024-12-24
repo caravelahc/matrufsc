@@ -7,8 +7,8 @@ frontend
 install
 ods.py
 config.mak
-index.html
-index.html.gz
+#index.html
+#index.html.gz
 capim.css.gz
 cursos_turmas
 cursos_turmas.js
