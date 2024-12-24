@@ -1,4 +1,6 @@
-CAPIM
+Repositório para refatoração do MatrUFSC
+
+# CAPIM
 =====
 
 CAPIM (Combinador Automático de Possibilidades Interativo de Matrícula) é o front-end do MatrUFSC, um projeto desenvolvido por estudantes da UFSC para facilitar o planejamento de matrículas.
