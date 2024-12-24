@@ -2,7 +2,7 @@ import styles from "./InfoWrapper.module.css";
 
 export default function InfoWrapper({ children }: { children: React.ReactNode }) {
     return (
-        <div id="ui_main" style={{ overflow: "auto", width: "890px", margin: "0 auto" }}>
+        <main className={styles.container}>
             <head className={styles.head}>
                 <h1>MatrUFSC</h1>
                 <a target="_blank" href="https://github.com/caravelahc/capim#readme" rel="noreferrer">
@@ -27,12 +27,6 @@ export default function InfoWrapper({ children }: { children: React.ReactNode })
                     Como usar
                 </a>
             </footer>
-        </div>
+        </main>
     );
 }
-
-/* <div id="dconsole" style={{ fontSize: "11px" }}></div> */
-/* <div id="grayout" style={{ display: "none" }}></div> */
-/*<div id="sobre_popup" style={{display: "none"}}>
-                <a>Sobre</a>
-            </div>*/

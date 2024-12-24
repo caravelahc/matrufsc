@@ -1,3 +1,9 @@
+.container {
+    overflow: auto;
+    width: 890px;
+    margin: 0 auto;
+}
+
 .head {
     display: flex;
     justify-content: space-between;
