@@ -23,7 +23,12 @@ export default function InfoWrapper({ children }: { children: React.ReactNode })
                     <a href="https://github.com/caravelahc/capim">https://github.com/caravelahc/capim</a>
                 </p>
 
-                <a target="_blank" href="https://github.com/caravelahc/capim/wiki" rel="noreferrer">
+                <a
+                    className={styles.link}
+                    target="_blank"
+                    href="https://github.com/caravelahc/capim/wiki"
+                    rel="noreferrer"
+                >
                     Como usar
                 </a>
             </footer>
