@@ -17,55 +17,57 @@ export default function Horarios() {
     }
 
     return (
-        <table className={styles.table}>
-            <thead className={styles.head}>
-                <tr>
-                    <th>
-                        <input title="Mostrar Salas" type="checkbox" onClick={handleMostrarSalas}/>
-                    </th>
-                    {
-                        DIAS.map((dia, index) => {
+        <div className={styles.ui_horario}>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <input title="Mostrar Salas" type="checkbox" onClick={handleMostrarSalas}/>
+                        </th>
+                        {
+                            DIAS.map((dia, index) => {
+                                return (
+                                    <th key={index}>
+                                        {dia}
+                                    </th>
+                                )
+                            })
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    {                        
+                        HORAS.map((hora, index) => {
                             return (
-                                <th key={index}>
-                                    {dia}
-                                </th>
+                                <Fragment key={index}>
+                                    {
+                                        hora == "13:30" || hora == "18:30" ? <tr style={{height: "4px"}}></tr> : null
+                                    }
+                                    <tr>
+                                        <td style={{fontSize: "11px"}}>
+                                            <div>{hora}</div>
+                                            {
+                                                isMostrarSalas ?
+                                                    <div style={{display: "block"}}>
+                                                        {HORAS_FIM[index]}
+                                                    </div>
+                                                :  
+                                                    null
+                                            }
+                                        </td>
+                                        <td className={styles.ui_horario_celula} style={{backgroundColor: "white", border: "1px solid black", color: "black"}}></td>
+                                        <td className={styles.ui_horario_celula} style={{backgroundColor: "white", border: "1px solid black", color: "black"}}></td>
+                                        <td className={styles.ui_horario_celula} style={{backgroundColor: "white", border: "1px solid black", color: "black"}}></td>
+                                        <td className={styles.ui_horario_celula} style={{backgroundColor: "white", border: "1px solid black", color: "black"}}></td>
+                                        <td className={styles.ui_horario_celula} style={{backgroundColor: "white", border: "1px solid black", color: "black"}}></td>
+                                        <td className={styles.ui_horario_celula} style={{backgroundColor: "white", border: "1px solid black", color: "black"}}></td>
+                                    </tr>
+                                </Fragment>
                             )
                         })
                     }
-                </tr>
-            </thead>
-            <tbody className={styles.body}>
-                {                        
-                    HORAS.map((hora, index) => {
-                        return (
-                            <Fragment key={index}>
-                                {
-                                    hora == "13:30" || hora == "18:30" ? <tr style={{height: "4px"}}></tr> : null
-                                }
-                                <tr>
-                                    <td>
-                                        <div>{hora}</div>
-                                        {
-                                            isMostrarSalas ?
-                                                <div style={{display: "block"}}>
-                                                    {HORAS_FIM[index]}
-                                                </div>
-                                            :  
-                                                null
-                                        }
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </Fragment>
-                        )
-                    })
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     );
 }
