@@ -1,0 +1,28 @@
+.combobox_input {
+    font-size: 11px;
+}
+
+.combobox_suggestions {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 300px;
+    border: 1px solid black;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    min-width: 300px;
+    font-size: 11px;
+    z-index: 3000;
+}
+.combobox_suggestions div {
+    background-color: white;
+    padding: 0;
+    z-index: 1;
+}
+.combobox_suggestions div div {
+    white-space: nowrap;
+    background-color: white;
+    display: block;
+    width: 110%;
+}
