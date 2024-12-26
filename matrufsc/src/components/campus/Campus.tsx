@@ -1,4 +1,20 @@
-function Campus() {
+import { ChangeEvent, Dispatch, SetStateAction, useEffect } from "react";
+import styles from "./Campus.module.css"
+
+function Campus(
+    { 
+        setCampusSemesterInfo,
+        campusSemesterInfo
+    } : { 
+        setCampusSemesterInfo: Dispatch<SetStateAction<{
+            campus: string,
+            semester: string
+        }>>,
+        campusSemesterInfo: {
+            campus: string,
+            semester: string
+        }
+    }) {
     const CAMPUSES = [
         ["FLO", "Florianópolis"],
         ["JOI", "Joinville"],
@@ -52,10 +68,27 @@ function Campus() {
 
     const SEMESTERS = loadSemesters(4)
 
+    useEffect(() => {
+        setCampusSemesterInfo({
+            campus: CAMPUSES[0][0],
+            semester: SEMESTERS[0].replace('-', '')
+        })
+    }, [])
+
+
+    const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = event.target
+
+        setCampusSemesterInfo({
+            ...campusSemesterInfo,
+            [name]: value
+        })
+    }
+
     return (
-        <div className="ui_campus">
+        <td className={styles.ui_campus} align="left">
             {"Campus: "} 
-            <select name="ampuses">
+            <select name="campus" onChange={handleChange}>
                 {
                     CAMPUSES.map((campus, index) => {
                         return (
@@ -64,7 +97,7 @@ function Campus() {
                     })
                 }
             </select>
-            <select name="semesters">
+            <select name="semester" onChange={handleChange}>
                 {
                     SEMESTERS.map((semester, index) => {
                         return (
@@ -73,7 +106,7 @@ function Campus() {
                     })
                 }
             </select>
-        </div>
+        </td>
     )
 }
 
