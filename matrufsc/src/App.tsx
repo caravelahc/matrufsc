@@ -6,8 +6,48 @@ import Turmas from "./components/turmas/Turmas";
 import Planos from "./components/planos/Planos";
 import Saver from "./components/saver/Saver";
 import Materias from "./components/materias/Materias";
+import MateriasSuggetions from "./components/materias_suggestions/MateriasSugestions";
+import { useEffect, useState } from "react";
 
 function App() {
+    const [campusSemesterInfo, setCampusSemesterInfo] = useState({
+        campus: "",
+        semester: ""
+    })
+    const [database, setDatabase] = useState([])
+
+    useEffect(() => {
+        const loadDb = async () => {
+            const { campus, semester } = campusSemesterInfo
+
+            if (campus !== "" && semester !== "") {
+                fetch(`../db/${semester}_${campus}.json`, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(response => response.json())
+                    .then(json => {
+                        setDatabase(json[campus])   
+                    }).then(() => console.log("Database updated!"))
+                /*fetch(`https://matrufsc.caravela.club/data//${semester}.json`, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(response => response.json())
+                    .then(json => {
+                        setDatabase(json[campus])   
+                    }).then(() => console.log("Database updated!"))*/
+            }
+        }
+
+        loadDb()
+    }, [campusSemesterInfo])
+
+
     return (
         <InfoWrapper>
             <table>
@@ -17,37 +57,17 @@ function App() {
                             <table cellPadding={0} cellSpacing={0} width="100%">
                                 <tbody>
                                     <tr>
-                                        <td className="ui_campus" align="left">
-                                            <div id="campus">
-                                                <Campus />
-                                            </div>
-                                        </td>
-                                        <td className="ui_planos" align="left" style={{ width: "280px" }}>
-                                            <div id="planos">
-                                                <Planos />
-                                            </div>
-                                        </td>
-                                        <td className="ui_saver" align="right">
-                                            <div id="saver">
-                                                <Saver />   
-                                            </div>
-                                        </td>
+                                        <Campus setCampusSemesterInfo={setCampusSemesterInfo} campusSemesterInfo={campusSemesterInfo}/>
+                                        <Planos />
+                                        <Saver />
                                     </tr>
                                 </tbody>
                             </table>
                             <table cellPadding={0} cellSpacing={0} width="100%">
                                 <tbody>
                                     <tr>
-                                        <td>
-                                            <input type="text" id="materias_input" />
-                                            <br />
-                                            <div id="materias_suggestions" style={{display: "none"}}>{/*MATERIAS_SUGGESTIONS COMPONENT HERE*/}</div>
-                                        </td>
-                                        <td style={{ border: "1px solid lightblue", width: "100%" }}>
-                                            <div id="logger">
-                                                <Logger />
-                                            </div>
-                                        </td>
+                                        <MateriasSuggetions database={database} />
+                                        <Logger />
                                     </tr>
                                 </tbody>
                             </table>
@@ -65,21 +85,15 @@ function App() {
                     </tr>
                     <tr>
                         <td colSpan={2}>
-                            <div className="ui_materias">
-                                <Materias />
-                            </div>
+                            <Materias />
                         </td>
                     </tr>
                     <tr>
                         <td style={{ width: "440px", verticalAlign:"top" }}>
-                            <div className="ui_horario">
-                                <Horarios />
-                            </div>
+                            <Horarios />
                         </td>
                         <td style={{ width: "440px" }} valign="top">
-                            <div className="ui_turmas">
-                                <Turmas />
-                            </div>
+                            <Turmas />
                         </td>
                     </tr>
                 </tbody>
