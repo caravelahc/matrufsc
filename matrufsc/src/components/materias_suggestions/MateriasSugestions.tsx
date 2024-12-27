@@ -1,14 +1,15 @@
 import { ChangeEvent, useState } from "react"
 import styles from "./MateriasSuggestions.module.css"
+import filter from "../../utils/filter.ts"
 
 function MateriasSuggetions(
     {
         database
     } : {
-        database: string[]
+        database: Array<Array<string>>
     }) {
-    const [searchResult, setSearchResult] = useState([])
-    const [pagesNumber, setPagesNumber] = useState(1)
+    const [searchResult, setSearchResult] = useState<Array<Array<string>>>([])
+    const [pagesNumber, setPagesNumber] = useState<number>(1)
 
     const search = (text: string) => {
         const textFormatted = text.toUpperCase()
@@ -23,11 +24,11 @@ function MateriasSuggetions(
             .replace(/Ñ/g, "N")
             .replace(/Ý/g, "Y")
             .replace(/ß/g, "B");
-
+        
         if (textFormatted.length == 0) {
             setSearchResult([])
         } else {
-            const result = database.filter((row: string[]) => row[0].includes(textFormatted) || row[1].includes(textFormatted))
+            const result = filter(textFormatted, database)
 
             setSearchResult(result)
         }
@@ -59,10 +60,15 @@ function MateriasSuggetions(
                                             </div>
                                         )
                                     })
-                                }  
-                                <div style={{cursor: "pointer", fontSize: "13px", fontWeight: "bold", backgroundColor: "white"}} onClick={() => setPagesNumber(pagesNumber+1)}>
-                                    Buscar mais...
-                                </div> 
+                                }
+                                {
+                                    10 * pagesNumber < searchResult.length ?
+                                        <div style={{cursor: "pointer", fontSize: "13px", fontWeight: "bold", backgroundColor: "white"}} onClick={() => setPagesNumber(pagesNumber + 1)}>
+                                            Buscar mais...
+                                        </div> 
+                                    :
+                                        null
+                                }
                             </div>
                         </div>
                     :
