@@ -63,8 +63,6 @@ function filter(searchText: string, database: Array<Array<string>>) {
         }
     }
 
-    console.log(result)
-
     result.sort((a: Array<string>, b: Array<string>) => {
         const aScore = parseInt(a[4])
         const bScore = parseInt(b[4])
@@ -91,8 +89,6 @@ function filter(searchText: string, database: Array<Array<string>>) {
         return diff
     })
 
-
-    console.log(result)
     return result
 }
 
