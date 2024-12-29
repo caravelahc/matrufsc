@@ -6,6 +6,7 @@ import Turmas from "./components/turmas/Turmas";
 import Planos from "./components/planos/Planos";
 import Saver from "./components/saver/Saver";
 import Materias from "./components/materias/Materias";
+import NovaMateria from "./components/novaMateria";
 
 function App() {
     return (
@@ -24,11 +25,12 @@ function App() {
                         <Saver />
                     </div>
                 </div>
-                <div className="flex">
+                <div className="flex gap-x-2">
                     <div>
                         <input type="combobox" id="materias_input" className="font-11 w-48 border border-black p-0" />
                         <div id="materias_suggestions" className="hidden">{/*MATERIAS_SUGGESTIONS COMPONENT HERE*/}</div>
                     </div>
+                    <NovaMateria />
                     <div className="flex-1 border border-[#add8e6]">
                         <Logger />
                     </div>
