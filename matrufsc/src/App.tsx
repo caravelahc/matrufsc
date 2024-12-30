@@ -6,9 +6,11 @@ import Turmas from "./components/turmas/Turmas";
 import Planos from "./components/planos/Planos";
 import Saver from "./components/saver/Saver";
 import Materias from "./components/materias/Materias";
-import NovaMateria from "./components/novaMateria";
+import NovaMateria from "./components/NovaMateria";
+import { useState } from "react";
 
 function App() {
+    const [isPopoverOpen, setPopoverOpen] = useState(false);
     return (
         <InfoWrapper>
             <div className="space-y-4">
@@ -30,7 +32,7 @@ function App() {
                         <input type="combobox" id="materias_input" className="font-11 w-48 border border-black p-0" />
                         <div id="materias_suggestions" className="hidden">{/*MATERIAS_SUGGESTIONS COMPONENT HERE*/}</div>
                     </div>
-                    <NovaMateria />
+                    <NovaMateria isPopoverOpen={isPopoverOpen} setPopoverOpen={setPopoverOpen}/>
                     <div className="flex-1 border border-[#add8e6]">
                         <Logger />
                     </div>
@@ -44,7 +46,7 @@ function App() {
                 </div>
                 <div className="flex space-x-4">
                     <div className="w-96">
-                        <Horarios />
+                        <Horarios isPopoverOpen={isPopoverOpen} setPopoverOpen={setPopoverOpen}/>
                     </div>
                     <div className="w-96">
                         <Turmas />

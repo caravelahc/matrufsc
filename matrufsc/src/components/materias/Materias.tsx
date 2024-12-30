@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { SortableContainer, SortableElement, arrayMove } from "react-sortable-hoc";
+import { SortableContainer, SortableElement } from "react-sortable-hoc";
+import { arrayMoveImmutable } from "array-move";
 
 const SortableItem = SortableElement(({ materia, handleSelect, handleEdit, handleRemove }) => (
     <tr className="hover:bg-gray-100 cursor-pointer" style={{ backgroundColor: materia.cor }}>
@@ -62,7 +63,7 @@ function Materias() {
     };
 
     const onSortEnd = ({ oldIndex, newIndex }) => {
-        setMaterias(arrayMove(materias, oldIndex, newIndex));
+        setMaterias(arrayMoveImmutable(materias, oldIndex, newIndex));
     };
 
     return (
