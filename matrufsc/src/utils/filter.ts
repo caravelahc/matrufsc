@@ -1,3 +1,5 @@
+import { IMateria } from "./materiasOperations";
+
 function searchScore(haystack: string, searchWordsRegex: RegExp, value: number) {
     searchWordsRegex.lastIndex = 0;
     const tmp = haystack.match(searchWordsRegex);
@@ -6,7 +8,7 @@ function searchScore(haystack: string, searchWordsRegex: RegExp, value: number) 
     return tmp.length * value;
 }
 
-function filter(searchText: string, database: Array<Array<string>>) {
+function filter(searchText: string, database: Array<IMateria>) {
     let searchWhole: RegExp[] = []
     let searchPart: RegExp[] = []
     let searchTextWords = searchText.split(" ")
@@ -23,7 +25,7 @@ function filter(searchText: string, database: Array<Array<string>>) {
 
     for (let i = 0; i < database.length; i++) {
         const haystack = database[i]
-        const firstWord = haystack[1].split(" ")[0]
+        const firstWord = haystack.nomeSearch.split(" ")[0]
 
         let exactly = false
         let score = 0
@@ -31,7 +33,7 @@ function filter(searchText: string, database: Array<Array<string>>) {
             let exprScore = 0
             searchWhole[j].lastIndex = 0
 
-            if (searchWhole[j].test(haystack[0])) {
+            if (searchWhole[j].test(haystack.codigo)) {
                 exactly = true
                 continue
             }
@@ -40,9 +42,9 @@ function filter(searchText: string, database: Array<Array<string>>) {
                 exprScore += 200
             }
 
-            exprScore += searchScore(haystack[1], searchWhole[j], 100);
-            exprScore += searchScore(haystack[1], searchPart[j], 10);
-            exprScore += searchScore(haystack[0], searchPart[j], 1);
+            exprScore += searchScore(haystack.nomeSearch, searchWhole[j], 100);
+            exprScore += searchScore(haystack.nomeSearch, searchPart[j], 10);
+            exprScore += searchScore(haystack.codigo, searchPart[j], 1);
 
             if (exprScore) {
                 score += exprScore
@@ -58,29 +60,25 @@ function filter(searchText: string, database: Array<Array<string>>) {
         }
 
         if (score) {
-            haystack[4] = score.toString()
+            haystack.score = score
             result.push(haystack)
         }
     }
 
-    result.sort((a: Array<string>, b: Array<string>) => {
-        const aScore = parseInt(a[4])
-        const bScore = parseInt(b[4])
-
-
-        let diff = bScore - aScore
+    result.sort((a: IMateria, b: IMateria) => {
+        let diff = b.score - a.score
 
         if (!diff) {
-            if (aScore < 10 && bScore < 10) {
-                if (b[0] < a[0]) {
+            if (a.score < 10 && b.score < 10) {
+                if (b.codigo < a.codigo) {
                     diff =  1;
-		} else if (a[0] < b[0]) {
+		} else if (a.codigo < b.codigo) {
                     diff = -1;
 	        }
             } else {
-                if (b[1] < a[1]) {
+                if (b.nomeSearch < a.nomeSearch) {
                     diff =  1;
-		} else if (a[1] < b[1]) {
+		} else if (a.nomeSearch < b.nomeSearch) {
                     diff = -1;
 		}
             }
