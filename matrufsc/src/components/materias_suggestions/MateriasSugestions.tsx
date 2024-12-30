@@ -1,14 +1,17 @@
 import { ChangeEvent, useState } from "react"
 import styles from "./MateriasSuggestions.module.css"
 import filter from "../../utils/filter.ts"
+import { IMateria } from "../../utils/materiasOperations.ts"
 
 function MateriasSuggetions(
     {
-        database
+        database,
+        addMateria,
     } : {
-        database: Array<Array<string>>
+        database: Array<IMateria>,
+        addMateria: (materia: IMateria) => void,
     }) {
-    const [searchResult, setSearchResult] = useState<Array<Array<string>>>([])
+    const [searchResult, setSearchResult] = useState<Array<IMateria>>([])
     const [pagesNumber, setPagesNumber] = useState<number>(1)
 
     const search = (text: string) => {
@@ -55,8 +58,8 @@ function MateriasSuggetions(
                                 {
                                     searchResult.slice(0, 10 * pagesNumber).map((result, index) => {
                                         return (
-                                            <div key={index} style={{cursor: "pointer", backgroundColor: "white"}}>
-                                                {result[0]} {result[2]}
+                                            <div key={index} style={{cursor: "pointer", backgroundColor: "white"}} onClick={() => addMateria(result)}>
+                                                {result.codigo} {result.nome}
                                             </div>
                                         )
                                     })
