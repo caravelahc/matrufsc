@@ -1,30 +1,28 @@
-import styles from "./InfoWrapper.module.css";
-
 export default function InfoWrapper({ children }: { children: React.ReactNode }) {
     return (
-        <main className={styles.container}>
-            <head className={styles.head}>
-                <h1>MatrUFSC</h1>
-                <a target="_blank" href="https://github.com/caravelahc/capim#readme" rel="noreferrer">
+        <main className="py-6 overflow-auto w-[890px] mx-auto">
+            <header className="mb-6 flex justify-between items-center">
+                <h1 className="text-4xl">MatrUFSC</h1>
+                <a className="underline" target="_blank" href="https://github.com/caravelahc/capim#readme" rel="noreferrer">
                     Sobre
                 </a>
-            </head>
+            </header>
 
             {children}
 
-            <footer className={styles.footer}>
+            <footer className="flex justify-between">
                 <p>
                     Não se esqueça de fazer sua matrícula no{" "}
-                    <a target="_blank" href="http://cagr.ufsc.br/" rel="noreferrer">
+                    <a className="underline" target="_blank" href="http://cagr.ufsc.br/" rel="noreferrer">
                         CAGR
                     </a>
                     ! Este aplicativo não tem nenhum vínculo com a UFSC.
                     <br />
-                    <a href="https://github.com/caravelahc/capim">https://github.com/caravelahc/capim</a>
+                    <a className="underline" href="https://github.com/caravelahc/capim">https://github.com/caravelahc/capim</a>
                 </p>
 
                 <a
-                    className={styles.link}
+                    className="flex gap-4 whitespace-nowrap underline"
                     target="_blank"
                     href="https://github.com/caravelahc/capim/wiki"
                     rel="noreferrer"
