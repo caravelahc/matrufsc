@@ -9,12 +9,48 @@ import Materias from "./components/materias/Materias";
 import MateriasSuggetions from "./components/materias_suggestions/MateriasSugestions";
 import { useEffect, useState } from "react";
 
+import { 
+    addMateria, 
+    removeMateria, 
+    formatDbMaterias, 
+    checkboxMateria,
+    moveUpMateria,
+    moveDownMateria, 
+    IMateria 
+} from "./utils/materiasOperations";
+
 function App() {
     const [campusSemesterInfo, setCampusSemesterInfo] = useState({
         campus: "",
         semester: ""
     })
-    const [database, setDatabase] = useState([])
+    const [database, setDatabase] = useState<Array<IMateria>>([])
+    const [selectedMaterias, setSelectedMaterias] = useState<Array<IMateria>>([])
+
+    const addSelectedMateria = (selectedMateria: IMateria) => {
+        const newSelectedMaterias = addMateria(selectedMaterias, selectedMateria)
+        setSelectedMaterias(newSelectedMaterias)
+    }
+
+    const removeSelectedMateria = (selectedMateria: IMateria) => {
+        const newSelectedMaterias = removeMateria(selectedMaterias, selectedMateria)
+        setSelectedMaterias(newSelectedMaterias)
+    }
+
+    const handleCheckboxMateria = (selectedMateria: IMateria) => {
+        const newSelectedMaterias = checkboxMateria(selectedMaterias, selectedMateria)
+        setSelectedMaterias(newSelectedMaterias)
+    }
+
+    const handleMoveUpMateria = (selectedMateria: IMateria) => {
+        const newSelectedMaterias = moveUpMateria(selectedMaterias, selectedMateria)
+        setSelectedMaterias(newSelectedMaterias)
+    }
+
+    const handleMoveDownMateria = (selectedMateria: IMateria) => {
+        const newSelectedMaterias = moveDownMateria(selectedMaterias, selectedMateria)
+        setSelectedMaterias(newSelectedMaterias)
+    }
 
     useEffect(() => {
         const loadDb = async () => {
@@ -29,7 +65,8 @@ function App() {
                 })
                     .then(response => response.json())
                     .then(json => {
-                        setDatabase(json[campus])   
+                        const materiasFormatted = formatDbMaterias(json[campus])
+                        setDatabase(materiasFormatted)   
                     }).then(() => console.log("Database updated!"))
                 /*fetch(`https://matrufsc.caravela.club/data//${semester}.json`, {
                     headers: {
@@ -66,7 +103,7 @@ function App() {
                             <table cellPadding={0} cellSpacing={0} width="100%">
                                 <tbody>
                                     <tr>
-                                        <MateriasSuggetions database={database} />
+                                        <MateriasSuggetions database={database} addMateria={addSelectedMateria} />
                                         <Logger />
                                     </tr>
                                 </tbody>
@@ -85,12 +122,19 @@ function App() {
                     </tr>
                     <tr>
                         <td colSpan={2}>
-                            <Materias />
+                            <Materias 
+                                selectedMaterias={selectedMaterias} 
+                                semester={campusSemesterInfo.semester} 
+                                removeMateria={removeSelectedMateria} 
+                                handleCheckboxMateria={handleCheckboxMateria}
+                                handleMoveUpMateria={handleMoveUpMateria}
+                                handleMoveDownMateria={handleMoveDownMateria}
+                            />
                         </td>
                     </tr>
                     <tr>
                         <td style={{ width: "440px", verticalAlign:"top" }}>
-                            <Horarios />
+                            <Horarios selectedMaterias={selectedMaterias} />
                         </td>
                         <td style={{ width: "440px" }} valign="top">
                             <Turmas />
