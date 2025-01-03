@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { 
     addMateria, 
     removeMateria, 
-    formatDbMaterias, 
+    //formatDbMaterias, 
     checkboxMateria,
     moveUpMateria,
     moveDownMateria,
