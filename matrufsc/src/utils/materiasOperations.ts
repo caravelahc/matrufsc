@@ -168,6 +168,18 @@ function moveDownMateria(selectedMaterias: Array<IMateria>, selectedMateria: IMa
     return newSelectedMaterias
 }
 
+function changeTurmaEscolhidaMateria(selectedMaterias: Array<IMateria>, selectedMateria: IMateria, newCodigo: string) : Array<IMateria> {
+    let newSelectedMaterias = [...selectedMaterias]
+
+    const selectedMateriaIndex = newSelectedMaterias.findIndex(newSelectedMateria => newSelectedMateria.codigo === selectedMateria.codigo)
+
+    if (selectedMateriaIndex !== undefined) {
+        newSelectedMaterias[selectedMateriaIndex].turmaEscolhida = newCodigo
+    }
+
+    return newSelectedMaterias
+}
+
 export {
     formatDbMaterias,
     addMateria,
@@ -175,5 +187,6 @@ export {
     checkboxMateria,
     moveUpMateria,
     moveDownMateria,
+    changeTurmaEscolhidaMateria,
     type IMateria,
 }

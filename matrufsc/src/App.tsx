@@ -15,7 +15,8 @@ import {
     formatDbMaterias, 
     checkboxMateria,
     moveUpMateria,
-    moveDownMateria, 
+    moveDownMateria,
+    changeTurmaEscolhidaMateria, 
     IMateria 
 } from "./utils/materiasOperations";
 
@@ -26,10 +27,12 @@ function App() {
     })
     const [database, setDatabase] = useState<Array<IMateria>>([])
     const [selectedMaterias, setSelectedMaterias] = useState<Array<IMateria>>([])
+    const [selectedMateriaTurmas, setSelectedMateriaTurmas] = useState<IMateria | null>(null)
 
     const addSelectedMateria = (selectedMateria: IMateria) => {
         const newSelectedMaterias = addMateria(selectedMaterias, selectedMateria)
         setSelectedMaterias(newSelectedMaterias)
+        setSelectedMateriaTurmas(selectedMateria)
     }
 
     const removeSelectedMateria = (selectedMateria: IMateria) => {
@@ -49,6 +52,11 @@ function App() {
 
     const handleMoveDownMateria = (selectedMateria: IMateria) => {
         const newSelectedMaterias = moveDownMateria(selectedMaterias, selectedMateria)
+        setSelectedMaterias(newSelectedMaterias)
+    }
+
+    const handleChangeTurmaEscolhidaMateria = (selectedMateria: IMateria, codigo: string) => {
+        const newSelectedMaterias = changeTurmaEscolhidaMateria(selectedMaterias, selectedMateria, codigo)
         setSelectedMaterias(newSelectedMaterias)
     }
 
@@ -137,7 +145,7 @@ function App() {
                             <Horarios selectedMaterias={selectedMaterias} />
                         </td>
                         <td style={{ width: "440px" }} valign="top">
-                            <Turmas />
+                            <Turmas selectedMateriaTurmas={selectedMateriaTurmas} changeTurmaEscolhidaMateria={handleChangeTurmaEscolhidaMateria} />
                         </td>
                     </tr>
                 </tbody>
