@@ -65,7 +65,7 @@ function App() {
             const { campus, semester } = campusSemesterInfo
 
             if (campus !== "" && semester !== "") {
-                fetch(`../db/${semester}_${campus}.json`, {
+                /*fetch(`../db/${semester}_${campus}.json`, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                         'Content-Type': 'application/json',
@@ -76,7 +76,8 @@ function App() {
                         const materiasFormatted = formatDbMaterias(json[campus])
                         setDatabase(materiasFormatted)   
                     }).then(() => console.log("Database updated!"))
-                /*fetch(`https://matrufsc.caravela.club/data//${semester}.json`, {
+                */
+                fetch(`https://matrufsc.caravela.club/data//${semester}.json`, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                         'Content-Type': 'application/json',
@@ -85,7 +86,7 @@ function App() {
                     .then(response => response.json())
                     .then(json => {
                         setDatabase(json[campus])   
-                    }).then(() => console.log("Database updated!"))*/
+                    }).then(() => console.log("Database updated!"))
             }
         }
 
