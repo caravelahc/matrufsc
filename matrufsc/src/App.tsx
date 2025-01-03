@@ -103,8 +103,8 @@ function App() {
                                 <tbody>
                                     <tr>
                                         <Campus setCampusSemesterInfo={setCampusSemesterInfo} campusSemesterInfo={campusSemesterInfo}/>
-                                        <Planos />
-                                        <Saver />
+                                        {/*<Planos />*/}
+                                        {/*<Saver />*/}
                                     </tr>
                                 </tbody>
                             </table>

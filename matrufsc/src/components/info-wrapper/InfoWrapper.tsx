@@ -20,7 +20,7 @@ export default function InfoWrapper({ children }: { children: React.ReactNode })
                     </a>
                     ! Este aplicativo não tem nenhum vínculo com a UFSC.
                     <br />
-                    <a href="https://github.com/caravelahc/capim">https://github.com/caravelahc/capim</a>
+                    <a href="https://github.com/caravelahc/matrufsc">https://github.com/caravelahc/matrufsc</a>
                 </p>
 
                 <a

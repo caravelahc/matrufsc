@@ -50,7 +50,7 @@ function Materias(
                             Período
                         </th>
                         <th id="combinacoes" className={styles.ui_combinacoes}>
-                            Combinações 
+                            {/*Combinações 
                             <span title="Combinação Anterior">
                                 <strong>
                                     &nbsp;&lt;&nbsp;
@@ -61,7 +61,7 @@ function Materias(
                                 <strong>
                                     &nbsp;&gt;&nbsp;
                                 </strong>
-                            </span> 
+                            </span>*/} 
                             Créditos por semana: {reduceCargaHoraria()}
                         </th>
                     </tr>
